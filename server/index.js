@@ -80,6 +80,7 @@ export async function createServer(
 
   app.use(express.json());
 
+  
   app.use((req, res, next) => {
     const shop = req.query.shop;
     if (Shopify.Context.IS_EMBEDDED_APP && shop) {
@@ -108,6 +109,10 @@ export async function createServer(
   /**
    * @type {import('vite').ViteDevServer}
    */
+   app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  });
+
   let vite;
   if (!isProd) {
     vite = await import("vite").then(({ createServer }) =>
@@ -152,3 +157,4 @@ export async function createServer(
 if (!isTest) {
   createServer().then(({ app }) => app.listen(PORT));
 }
+
