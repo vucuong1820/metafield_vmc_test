@@ -16,9 +16,11 @@ function DimensionCellModal({ onSetValue, value, error }) {
     onSetValue(JSON.stringify({...dimension, [key]: value}))
   }
   const activator = (
-    <Button onClick={toggleActive} disclosure>
-      {dimension ? dimension.unit : "Choose unit"}
+    <div style={{color: error ? '#bf0711' : ''}} >
+      <Button outline={error ? true : false } monochrome  onClick={toggleActive} disclosure>
+      {dimension.unit ? dimension.unit : "Choose unit"}
     </Button>
+    </div>
   );
   const listUnit = [
     {
@@ -59,6 +61,7 @@ function DimensionCellModal({ onSetValue, value, error }) {
       <ButtonGroup fullWidth>
         <div style={{ maxWidth: "120px" }}>
           <TextField
+            error={error ? true : false}
             step={0.1}
             type="number"
             value={dimension?.value ? dimension.value.toString() : ""}

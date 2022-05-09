@@ -85,7 +85,7 @@ function UrlCellModal({ onSetValue, value, error }) {
         </div>
       </Popover>
 
-      <TextField value={urlValue} onChange={(value) => onSetValue(`${protocol}${value}`)}/>
+      <TextField error={error ? true : false} value={urlValue} onChange={(value) => onSetValue(`${protocol}${value}`)}/>
     </ButtonGroup>
     <InlineError message={error || ""} />
     </>

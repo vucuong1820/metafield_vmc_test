@@ -55,13 +55,14 @@ function AddMetafieldModal({
   setOpenModal,
   onAddMetafield,
   ownerId,
-  errorsList
+  errorsList,
+  setErrorsList,
 }) {
   const [active, setActive] = useState(true);
   const [type, setType] = useState("single_line_text_field");
   const [isAddLoading, setIsAddLoading] = useState(false);
   const [value, setValue] = useState("");
-  const [disabled, setDisabled] = useState(true)
+  const [disabled, setDisabled] = useState(true);
   const [isError, setIsError] = useState({
     key: false,
     namespace: false,
@@ -73,19 +74,26 @@ function AddMetafieldModal({
     value: "",
   });
   const validateField = useCallback((metafieldInput) => {
-    for(const field in metafieldInput){
-      if(metafieldInput[field].trim().length <= 0) return false
+    for (const field in metafieldInput) {
+      if (metafieldInput[field].trim().length <= 0) return false;
     }
-    return true
-},[])
+    return true;
+  }, []);
 
   useEffect(() => {
-
-    setDisabled(!validateField(metafield))
-  },[metafield])
+    setDisabled(!validateField(metafield));
+  }, [metafield]);
 
   const handleSetValue = (newValue) => {
     setMetafield((prev) => ({ ...prev, value: newValue }));
+    const newErrorsList = [...errorsList];
+    const indexFieldChanged = errorsList.findIndex(
+      (x) => x.field === "value"
+    );
+    if (newErrorsList[indexFieldChanged]?.message) {
+      newErrorsList[indexFieldChanged].message = "";
+      setErrorsList(newErrorsList);
+    }
   };
   const switchTypeValue = (type) => {
     switch (type) {
@@ -98,7 +106,10 @@ function AddMetafieldModal({
               value={metafield.value}
               disabled={disabled}
               setDisabled={setDisabled}
-              error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -111,7 +122,10 @@ function AddMetafieldModal({
               value={metafield.value}
               disabled={disabled}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -124,7 +138,10 @@ function AddMetafieldModal({
               value={metafield.value}
               disabled={disabled}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -137,7 +154,10 @@ function AddMetafieldModal({
               value={metafield.value}
               disabled={disabled}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -150,7 +170,10 @@ function AddMetafieldModal({
               value={metafield.value}
               disabled={disabled}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -164,7 +187,10 @@ function AddMetafieldModal({
               value={metafield.value}
               disabled={disabled}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -176,7 +202,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -188,7 +217,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -200,7 +232,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -212,7 +247,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -225,7 +263,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -238,7 +279,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -250,7 +294,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -264,7 +311,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -277,7 +327,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -289,7 +342,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -303,7 +359,10 @@ function AddMetafieldModal({
               onSetValue={handleSetValue}
               value={metafield.value}
               setDisabled={setDisabled}
-               error={errorsList.find(item => item.field === "value")?.message || false}
+              error={
+                errorsList?.find((item) => item.field === "value")?.message ||
+                false
+              }
             />
           ),
         };
@@ -360,12 +419,10 @@ function AddMetafieldModal({
     },
   }));
 
-
   const handleAddClick = async () => {
     setIsAddLoading(true);
     setIsError({ key: false, namespace: false, value: false });
     if (type === "date_time") {
-
       const result = await onAddMetafield({
         ...metafield,
         type,
@@ -373,22 +430,23 @@ function AddMetafieldModal({
         value: `${metafield.value}:00+00:00`,
       });
       setIsAddLoading(false);
-      if(result === "success"){
+      if (result === "success") {
         setMetafield({ namespace: "", key: "", value: "" });
         setOpenModal(false);
       }
-
     } else {
-
       console.log("start save");
-      const result = await onAddMetafield({ ...metafield, type, ownerId: ownerId });
+      const result = await onAddMetafield({
+        ...metafield,
+        type,
+        ownerId: ownerId,
+      });
       setIsAddLoading(false);
       // setOpenModal(false);
-      if(result === "success"){
+      if (result === "success") {
         setMetafield({ namespace: "", key: "", value: "" });
         setOpenModal(false);
       }
-
     }
 
     // console.log(metafield, type, productId);
@@ -400,7 +458,7 @@ function AddMetafieldModal({
       open={openModal}
       onClose={() => {
         setOpenModal(false);
-        setMetafield({namespace: "", key: "", value: ""});
+        setMetafield({ namespace: "", key: "", value: "" });
         setIsError({ key: false, namespace: false, value: false });
       }}
     >
@@ -443,15 +501,23 @@ function AddMetafieldModal({
                 <TextField
                   min="1"
                   value={metafield?.namespace}
-                  error={errorsList.find(item => item.field === "namespace")?.message || false}
+                  error={
+                    errorsList?.find((item) => item.field === "namespace")
+                      ?.message || false
+                  }
                   onChange={(value) => {
-                    value?.trim().length <=0 ? setDisabled(true) : setDisabled(false);
+                    value?.trim().length <= 0
+                      ? setDisabled(true)
+                      : setDisabled(false);
                     setMetafield((prev) => ({ ...prev, namespace: value }));
-                    if (value === "") {
-                      setIsError((prev) => ({ ...prev, namespace: true }));
-                      return;
+                    const newErrorsList = [...errorsList];
+                    const indexFieldChanged = errorsList.findIndex(
+                      (x) => x.field === "namespace"
+                    );
+                    if (newErrorsList[indexFieldChanged]?.message) {
+                      newErrorsList[indexFieldChanged].message = "";
+                      setErrorsList(newErrorsList);
                     }
-                    setIsError((prev) => ({ ...prev, namespace: false }));
                   }}
                 />
               </div>
@@ -461,15 +527,23 @@ function AddMetafieldModal({
                 <TextField
                   min="1"
                   value={metafield?.key}
-                  error={errorsList.find(item => item.field === "key")?.message || false}
+                  error={
+                    errorsList?.find((item) => item.field === "key")?.message ||
+                    false
+                  }
                   onChange={(value) => {
-                    value?.trim().length <=0 ? setDisabled(true) : setDisabled(false);
+                    value?.trim().length <= 0
+                      ? setDisabled(true)
+                      : setDisabled(false);
                     setMetafield((prev) => ({ ...prev, key: value }));
-                    if (value === "") {
-                      setIsError((prev) => ({ ...prev, key: true }));
-                      return;
+                    const newErrorsList = [...errorsList];
+                    const indexFieldChanged = errorsList.findIndex(
+                      (x) => x.field === "key"
+                    );
+                    if (newErrorsList[indexFieldChanged]?.message) {
+                      newErrorsList[indexFieldChanged].message = "";
+                      setErrorsList(newErrorsList);
                     }
-                    setIsError((prev) => ({ ...prev, key: false }));
                   }}
                 />
               </div>
@@ -484,7 +558,12 @@ function AddMetafieldModal({
             </IndexTable.Cell>
 
             <IndexTable.Cell>
-              <Button disabled={disabled} loading={isAddLoading} primary onClick={handleAddClick}>
+              <Button
+                disabled={disabled}
+                loading={isAddLoading}
+                primary
+                onClick={handleAddClick}
+              >
                 Add
               </Button>
             </IndexTable.Cell>

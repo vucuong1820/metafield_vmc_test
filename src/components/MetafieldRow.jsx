@@ -62,11 +62,27 @@ function MetafieldRow(props) {
     currentItem,
     onSaveMetafield,
     error,
+    setErrorsList
   } = props;
   const deleteBtnRef = useRef(null);
   const { namespace, key, value, type, id } = item;
   const handleValue = (newValue) => {
     onChangeMetafield(newValue, id);
+    // const newErrorsList = [...errorsList];
+    // const indexFieldChanged = errorsList.findIndex(
+    //   (x) => x.field === "value"
+    // );
+    // if (newErrorsList[indexFieldChanged]?.message) {
+    //   newErrorsList[indexFieldChanged].message = "";
+    //   setErrorsList(newErrorsList);
+    // }
+    setErrorsList(prev => {
+      const index = prev.findIndex(x => x.id === id)
+      if(prev[index]?.message){
+        prev[index].message = '';
+      }
+      return prev
+    })
   };
   const switchTypeValue = (type) => {
     switch (type) {

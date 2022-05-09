@@ -16,9 +16,11 @@ function WeightCell({ onSetValue, value, error }) {
     onSetValue(JSON.stringify({...weight, [key]: value}))
   }
   const activator = (
-    <Button onClick={toggleActive} disclosure>
-      {weight ? weight.unit : "Choose unit"}
-    </Button>
+    <div style={{color: error ? '#bf0711' : ''}} >
+    <Button outline={error ? true : false } monochrome  onClick={toggleActive} disclosure>
+    {weight.unit ? weight.unit : "Choose unit"}
+  </Button>
+  </div>
   );
   const listUnit = [
     {
@@ -51,6 +53,7 @@ function WeightCell({ onSetValue, value, error }) {
       <ButtonGroup fullWidth>
         <div style={{ maxWidth: "120px" }}>
           <TextField
+            error={error ?  true : false}
             step={0.1}
             type="number"
             value={weight?.value ? weight.value.toString() : ""}

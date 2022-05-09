@@ -30,8 +30,6 @@ function ProductMetafield(props) {
   const [openModal, setOpenModal] = useState(false);
   const [metafieldsList, setMetafieldsList] = useState([]);
   const [errorsList, setErrorsList] = useState([]);
-  const [deleteToast, setDeleteToast] = useState(false);
-  const [addToast, setAddToast] = useState(false);
   const [toast, setToast] = useState({
     active: false,
     content: '',
@@ -72,7 +70,6 @@ function ProductMetafield(props) {
     metafields.loading,
     metafields.data,
   ]);
-
   const handleDeleteMetafield = async (id) => {
     try {
       const newMetafieldsList = metafieldsList.filter((x) => x.id !== id);
@@ -90,7 +87,7 @@ function ProductMetafield(props) {
       setMetafieldsList(newMetafieldsList);
       console.log("Delete successfully");
     } catch (error) {
-      setDeleteToast(true);
+      setToast({active: true, content: "Failed to delete metafield. Please try again!", error: true })
       console.log("Failed to delete:", error);
     }
   };
@@ -106,7 +103,6 @@ function ProductMetafield(props) {
   };
 
   const handleAddMetafield = async (dataObj) => {
-    setAddToast(false)
     try {
       console.log("add metafield, data send:", dataObj);
       const data = await createMetafield({
@@ -128,7 +124,7 @@ function ProductMetafield(props) {
       setErrorsList([])
       return "success";
     } catch (error) {
-      setAddToast(true)
+      setToast({active: true, content:'Failed to add new metafield. Please try again!', error: true })
       console.log("failed to add new metafield:", error);
       return "failed";
     }
@@ -154,11 +150,11 @@ function ProductMetafield(props) {
       });
       console.log(data)
       if(data.data.productUpdate.userErrors.length > 0) {
-        // setErrorsList(data.data.productUpdate.userErrors.map(item => ({
-        //   id: cloneItem.id ,
-        //   field: item.field[2],
-        //   message: item.message
-        // })))
+        setErrorsList(data.data.productUpdate.userErrors.map(item => ({
+          id: cloneItem.id ,
+          field: item.field[2],
+          message: item.message
+        })))
         setToast({active: true, content:data.data.productUpdate.userErrors[0].message, error: true})
         return;
       }
@@ -171,9 +167,12 @@ function ProductMetafield(props) {
         prev[index] = {id, key, namespace, type, value}
         return prev
       })
+      setErrorsList([])
+      setToast({active: true, content: "Metafield saved!", error: false})
       // setErrorsList([]);
       return;
     } catch (error) {
+      setToast({active: true, content: "Failed to save metafield. Please try again!", error: true})
       console.log("Failed to update:", error);
       return;
     }
@@ -208,6 +207,7 @@ function ProductMetafield(props) {
         openModal={openModal}
         setOpenModal={setOpenModal}
         onAddMetafield={handleAddMetafield}
+        setErrorsList={setErrorsList}
       />
       <Card>
         <Tabs
@@ -239,6 +239,7 @@ function ProductMetafield(props) {
                   return (
                     <MetafieldRow
                       error={errorsList.find(x => x.id === metafield.id)}
+                      setErrorsList={setErrorsList}
                       key={index}
                       index={index}
                       currentItem={currentMetafieldList.current.find(

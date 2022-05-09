@@ -19,6 +19,7 @@ function RatingCellModal({ onSetValue, value, error }) {
     <ButtonGroup>
       <div style={{ maxWidth: "120px" }}>
         <TextField
+          error={error ?  true : false}
           prefix="Rating"
           type="number"
           // error={!isError && "Out of range"}
@@ -33,6 +34,7 @@ function RatingCellModal({ onSetValue, value, error }) {
       </div>
       <div style={{ maxWidth: "91px" }}>
         <TextField
+          error={error ?  true : false}
           prefix="Min"
           value={currentRating.scale_min}
           onChange={(value) => {
@@ -43,6 +45,7 @@ function RatingCellModal({ onSetValue, value, error }) {
       </div>
       <div style={{ maxWidth: "91px" }}>
         <TextField
+          error={error ?  true : false}
           prefix="Max"
           value={currentRating.scale_max}
           onChange={(value) => {

@@ -47,7 +47,7 @@ function ColorCellModal({ onSetValue, value, error }) {
         </Card>
       </Popover>
       <div style={{ maxWidth: "150px" }}>
-        <TextField value={value} onChange={onSetValue} />
+        <TextField error={error ? true : false} value={value} onChange={onSetValue} />
       </div>
     </ButtonGroup>
     <InlineError message={error || ""} />
